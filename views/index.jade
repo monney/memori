@@ -3,7 +3,14 @@ html
   head
     include header.jade
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    h1= title
-    p Welcome to #{title}
+  include polymercss.jade
+  body(unresolved)
+    paper-scroll-header-panel(fixed)
+      paper-toolbar
+        paper-icon-button(icon="arrow-back")
+        .spacer.title #{title}
+        paper-icon-button(icon="search")
+        paper-icon-button(icon="more-vert")
+      .content
+        sample-content(size="100")
+    div hi
