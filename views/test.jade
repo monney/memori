@@ -1,17 +1,8 @@
-paper-material.test(elevation ="1" animated)
+paper-material.test.hidden(elevation ="1" animated)
 	.form
-		h4.cell Character Set
-		paper-radio-group.cell(selected="alphabetic")
-			paper-radio-button(name="numeric") Numeric
-			paper-radio-button(name="alphabetic") Alphabetic
-			paper-radio-button(name="alphanumeric") Alphanumeric
-		h4.cell Age
-		paper-slider.cell( pin value="20" min="1")
-		
-		paper-button.cell(raised) START
+		include form.jade
 	.exam
-		h1.cell#sequence #{sequence}
-		paper-input.cell(label="Sequence")
+		include exam.jade
 	.graph
-		google-chart#plot(type ="scatter" data ='[[\"Avg. Time\", \"Score\"],[20, 4.5],[31, 6.6],[50, 9],[77, 5.0],[68, 1.5]]')
+		include graph.jade
 		
