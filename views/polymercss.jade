@@ -54,6 +54,30 @@ style(is= "custom-style").
     margin-right:8.333333333%;
   }
   
+  .test {
+    display: none;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 70%;
+    text-align: center;
+    background-color: white;
+  }
+  
+  .form {
+  }
+  
+  .exam {
+    display: none;
+  }
+  
+  .graph {
+    display: none;
+  }
+  
   .wrapper {
     position: absolute;
     top: 150px;
@@ -61,4 +85,58 @@ style(is= "custom-style").
     right: 15%;
     width: 70%;
     height: 400px;
+  }
+  
+  paper-radio-button {
+        --paper-radio-button-checked-color: var(--paper-pink-a200);
+        --paper-radio-button-checked-ink-color: var(--paper-pink-a200);
+        --paper-radio-button-unchecked-color: var(--paper-pink-a400);
+        --paper-radio-button-unchecked-ink-color: var(--paper-pink-a700);
+      }
+
+  paper-slider {
+       --paper-slider-knob-color: var(--paper-pink-a200);
+       --paper-slider-active-color: var(--paper-pink-a200);
+       --paper-slider-pin-color: var(--paper-pink-a200);
+     }
+  .cell {
+    display: block;
+    width: 85%;
+    margin: auto;
+    padding-top: 10px;
+  }
+  
+  paper-input.cell {
+    display: block;
+    width: 85%;
+    margin: auto;
+    margin-top: 125px;
+  }
+  
+  h1.cell#sequence {
+    padding-top: 150px;
+  }
+  paper-button.cell {
+    --paper-button-ink-color: var(--paper-pink-a200);
+    background-color: var(--paper-indigo-500);
+    color: white;
+    display: block;
+    width: 1%;
+    margin: auto;
+    margin-top: 50px;
+  }
+  paper-radio-group.cell {
+    text-align: left;
+    display: block;
+    width: 20%;
+    margin: 0 0 0 42%;
+    padding-top: 10px;
+    vertical-align: middle;
+  }
+  google-chart {
+    height: 400px;
+    width: 100%;
+  }
+  h4.cell {
+    padding-top: 30px;
   }
