@@ -2,6 +2,7 @@ doctype html
 html
   head
     include header.jade
+    include polymerjs.jade
     title= title
   include polymercss.jade
   body(unresolved)
@@ -9,4 +10,9 @@ html
       paper-toolbar
         img(src="/images/memori1.svg")
         
-    div hi
+    .wrapper
+      paper-material.homebuttons.left(elevation ="1" animated)
+        img(src="/images/test.svg")
+      paper-material.homebuttons.right(elevation ="1" animated)
+        img(src="/images/graph.svg")
+      

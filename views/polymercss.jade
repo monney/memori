@@ -5,7 +5,7 @@ style(is= "custom-style").
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--paper-grey-200);;
+    background-color: var(--paper-grey-50);
   }
   paper-toolbar {
     background-color: var(--paper-indigo-500, #4285f4);
@@ -26,4 +26,39 @@ style(is= "custom-style").
   }
   .spacer {
     @apply(--layout-flex);
+  }
+  
+  .homebuttons {
+    width: 35%;
+    height: 100%;
+    background-color: white;
+  }
+  
+  .homebuttons img{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 35%;
+    width: auto;
+    opacity: 0.38;
+  }
+  .left {
+    float: left;
+    margin-left:8.333333333%;
+  }
+  .right {
+    float: right;
+    margin-right:8.333333333%;
+  }
+  
+  .wrapper {
+    position: absolute;
+    top: 150px;
+    right: 15%;
+    right: 15%;
+    width: 70%;
+    height: 400px;
   }
