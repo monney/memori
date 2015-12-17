@@ -1,12 +1,16 @@
 style(is= "custom-style").
+
   paper-scroll-header-panel {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    min-width: 1142.8571429px;
     background-color: var(--paper-grey-50);
-  }
+    padding:0;
+    margin:0;
+  }px
   paper-toolbar {
     background-color: var(--paper-indigo-500, #4285f4);
   }
@@ -17,9 +21,14 @@ style(is= "custom-style").
     padding: 8px;
     height: 80%;
     width: auto;
-    display:inline-block;
+    display:block;
     margin: auto;
   }
+  
+  paper-scroll-header-panel .content {
+    padding: 8px;
+  }
+  
   paper-icon-button {
     --paper-icon-button-ink-color: white
     color: white
@@ -32,6 +41,13 @@ style(is= "custom-style").
     width: 35%;
     height: 100%;
     background-color: white;
+    position: absolute;
+    margin: 0;
+    padding 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
   
   .homebuttons img{
@@ -46,12 +62,14 @@ style(is= "custom-style").
     opacity: 0.38;
   }
   .left {
-    float: left;
-    margin-left:8.333333333%;
+    left: 5%;
+    right: 60%;
+    //margin-left:8.333333333%;
   }
   .right {
-    float: right;
-    margin-right:8.333333333%;
+    left: 60%;
+    right: 5%;
+    //margin-right:8.333333333%;
   }
   
   .test {
@@ -62,6 +80,7 @@ style(is= "custom-style").
     bottom: 0;
     height: 100%;
     width: 70%;
+    min-width: 70%;
     text-align: center;
     background-color: white;
   }
@@ -69,9 +88,12 @@ style(is= "custom-style").
   .wrapper {
     position: absolute;
     top: 150px;
-    right: 15%;
+    left: 15%;
     right: 15%;
     width: 70%;
+    margin: 0;
+    padding: 0;
+    min-width: 800px;
     height: 400px;
   }
   
@@ -86,12 +108,13 @@ style(is= "custom-style").
        --paper-slider-knob-color: var(--paper-pink-a200);
        --paper-slider-active-color: var(--paper-pink-a200);
        --paper-slider-pin-color: var(--paper-pink-a200);
+       margin: 0 auto;
+       width: 85%
      }
   .cell {
     display: block;
-    width: 85%;
-    margin: auto;
-    padding-top: 10px;
+    margin: 0 auto;
+    padding-top: 10px;  
   }
   
   paper-input.cell {

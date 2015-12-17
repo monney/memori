@@ -6,9 +6,11 @@ html
     title= title
   include polymercss.jade
   body(unresolved)
-    paper-scroll-header-panel(fixed)
+    paper-scroll-header-panel(fullbleed)
       paper-toolbar
-        img(src="/images/memori1.svg")
+        img(spacer src="/images/memori1.svg")
+      .content
+        sample-content(size = "100")
         
     .wrapper
       include test.jade

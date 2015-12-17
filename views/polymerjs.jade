@@ -10,20 +10,32 @@ script.
 
 	$( ".left" ).click(
 	function() {
-	$( ".homebuttons" ).toggleClass("hidden");
-	$(".graph").toggleClass("hidden");
-	$(".exam").toggleClass("hidden");
-	$(".test").toggleClass("hidden");
+	$( ".homebuttons" ).addClass("hidden");
+	$(".graph").addClass("hidden");
+	$(".exam").addClass("hidden");
+	$(".test").removeClass("hidden");
+	$(".form").removeClass("hidden");
 	});
 
+	var done = true;
 	$( ".right" ).click(
 	function() {
-	$( ".homebuttons" ).toggleClass("hidden");
-	$(".form").toggleClass("hidden");
-	$(".exam").toggleClass("hidden");
-	$(".test").toggleClass("hidden");
-	document.querySelector('#plot').drawChart();
-
+	$( ".homebuttons" ).addClass("hidden");
+	$(".form").addClass("hidden");
+	$(".exam").addClass("hidden");
+	$(".graph").removeClass("hidden");
+	$.get('/plot',function(data, json){
+	$("#sequence").html(sequence);
+	$("#sequence").removeClass("hidden");
+	chars = chars - sequence.length;
+	$(".test").removeClass("hidden");
+	if (data.data.length > 1) {
+	document.querySelector('#plot').data = data.data;
+	}
+	else {
+		document.querySelector('#plot').drawChart();
+	}
+	});
 	});
 
 	var hashidden = false;
@@ -31,108 +43,112 @@ script.
 	var chars = 100;
 	var total = 0;
 	var i = 0;
-
+	var correct = 0;
+	
 	$( "#start" ).click(function () {
+	done = false;
 	var set = document.querySelector('#set').selected;
 	var age = document.querySelector('#age').immediateValue;
-	$("#sequence").toggleClass("hidden");
-	$("#guesser").toggleClass("hidden");
-	hashidden =  !hashidden;
-	 sequence = "";
-	 chars = 100;
-	 total = 0;
-	 i = 0;
-	 waiting = false;
-	$(".form").toggleClass("hidden");
-	$(".exam").toggleClass("hidden");
+	$(".form").addClass("hidden");
+	$(".exam").removeClass("hidden");
+	$("#sequence").addClass("hidden");
+	$("#guesser").addClass("hidden");
+	hashidden =  true;
 	var correct = 0;
 	$.get('/generate', {"age": age, "set": set},function(data, json){
 	sequence = data.sequence;
 	$("#sequence").html(sequence);
-	$("#sequence").toggleClass("hidden");
+	$("#sequence").removeClass("hidden");
 	chars = chars - sequence.length;
 	});
 	i++;
 	wait = (Math.random() * 3000) + 2000;
 	total+=wait
 	setTimeout(function () {
-	$("#sequence").toggleClass("hidden");
+	$("#sequence").addClass("hidden");
 	}, 1000);
 
 	setTimeout(function () {
-	$("#guesser").toggleClass("hidden");
-	hashidden =  !hashidden;
+	$("#guesser").removeClass("hidden");
+	hashidden =  false;
 	}, wait);
 	waiting = true;
 
 	});
 	
 	$(document).keypress(function(e) {
-	if(e.which == 13 && !hashidden) {
-		$("#sequence").html("");
-		document.querySelector('#sequence').value ="";
+		
+		if(done) {
+			$(".test").addClass("hidden");
+			$( ".homebuttons" ).removeClass("hidden");
+			$(".form").addClass("hidden");
+			$(".graph").addClass("hidden");
+			$(".exam").addClass("hidden");
+		}
+		
+		
+		
+		if (chars <= 0 && e.which == 13 && !done) {
 		var set = document.querySelector('#set').selected;
 		var age = document.querySelector('#age').immediateValue;
-		$("#guesser").toggleClass("hidden");
-		hashidden =  !hashidden;
-		 sequence = "";
-		 chars = 100;
-		 total = 0;
-		 i = 0;
-		 waiting = false;
-		var correct = 0;
+		var guess = document.querySelector('#guesser').value;
+		var min = Math.min(guess.length, sequence.length);
+		for (var k= 0; k < min; k++) {
+		if (guess.charAt(i) == sequence.charAt(i)) {
+		correct++;
+		}
+		}
+		var R = 0;
+		if(set == "numeric") {
+		R = 10;
+		}
+		if(set == "alphabetic") {
+		R = 52;
+		}
+		if(set == "alphanumeric") {
+		R = 62;
+		}
+		
+		var score = (R/62.0)*(correct);
+		time = total/(1000.0*i);
+		$("#sequence").html(score);
+		$("#guesser").addClass("hidden");
+		$("#sequence").removeClass("hidden");
+		hashidden =  true;
+		done = true;
+		
+		$.ajax({type: "POST",url:"/record",data: {"time": time, "score": score, "age": age}})
+	}
+	if(e.which == 13 && !hashidden && !done) {
+		var guess = document.querySelector('#guesser').value;
+		var min = Math.min(guess.length, sequence.length);
+		for (var k = 0; k < min; k++) {
+		if (guess.charAt(i) == sequence.charAt(i)) {
+		correct++;
+		}
+		}
+		var set = document.querySelector('#set').selected;
+		var age = document.querySelector('#age').immediateValue;
+		$("#guesser").addClass("hidden");
+		hashidden =  true;
 		$.get('/generate', {"age": age, "set": set},function(data, json){
 		sequence = data.sequence;
 		$("#sequence").html(sequence);
-		$("#sequence").toggleClass("hidden");
+		$("#sequence").removeClass("hidden");
 		chars = chars - sequence.length;
 		});
 		i++;
 		wait = (Math.random() * 3000) + 2000;
 		total+=wait
 		setTimeout(function () {
-		$("#sequence").toggleClass("hidden");
+		$("#sequence").addClass("hidden");
 		}, 1000);
 
 		setTimeout(function () {
-		$("#guesser").toggleClass("hidden");
-		hashidden =  !hashidden;
+		$("#guesser").removeClass("hidden");
+		hashidden =  false;
 		}, wait);
 		waiting = true;
-		
-		if (chars < 0) {
-		var R = 0;
-
-		if(set == 'numeric') {
-		R = 10;
-		}
-		if(set == 'alphabetic') {
-		R = 52;
-		}
-		if(set == 'alphanumeric') {
-		R = 62;
-		}
-
-		var score = (R/62.0)*(correct);
-		time = total/(1000.0*i);
-
-		$("#sequence").html(score);
-
-		
-		
-		if(hashidden) {
-		$("#guesser").toggleClass("hidden");
-		
-		$("#sequence").toggleClass("hidden");
-		}
-		hashidden =  false;
-		
-		//- $.ajax({
-		//- type: 'POST',
-		//- url: '/record',
-		//- data: {"time": time, "score": score, "age": age}
-		//- })
-		}
 	}
 	});
 	
